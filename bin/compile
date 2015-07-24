@@ -1,0 +1,20 @@
+#!/usr/bin/env bash
+# bin/compile <build-dir> <cache-dir>
+
+# fail fast
+set -e
+
+BUILD_DIR=$1
+CACHE_DIR=$2
+BUILDPACK_DIR=`cd $(dirname $0); cd ..; pwd`
+
+# Mono Runtime
+echo "* Extract Mono Runtime"
+mkdir -p ${BUILD_DIR}/vendor/mono
+
+# curl -s http://www.monobox.ch/mono.tar.gz | tar xz -C ${BUILD_DIR}/vendor/mono/
+curl -s http://www.monocloud.ch/downloads/CF/mono.tar.gz | tar xz -C ${BUILD_DIR}/vendor/mono/
+
+# Start Script
+echo "* Copy Startup Script"
+cp ${BUILDPACK_DIR}/app/start ${BUILD_DIR}/start
