@@ -9,4 +9,4 @@ export PKG_CONFIG_PATH="$PKG_CONFIG_PATH:$HOME/vendor/mono/lib/pkgconfig"
 #export MONO_GC_PARAMS=major=marksweep-par-fixed,max-heap-size=$MEMORY_LIMIT
 
 echo "* Start application on port ${PORT}..."
-mono --gc=boehm *.exe ${PORT}
+mono --gc=sgen *.exe ${PORT}
