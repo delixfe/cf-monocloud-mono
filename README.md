@@ -7,11 +7,11 @@ A simple Cloud Foundry build pack to run OWIN based application using Mono.
     
     apt-get install git autoconf libtool automake build-essential mono-devel gettext
     
-    curl http://download.mono-project.com/sources/mono/mono-3.12.1.tar.bz2 -o mono.tar.bz2
-    tar xvf mono-3.12.1.tar.gz
+    curl -O http://download.mono-project.com/sources/mono/mono-4.0.3.tar.bz2
+    tar xf mono-4.0.3.tar.gz
     
-    cd mono-3.12.1
-    ./configure --prefix=/app/vendor/mono
+    cd mono-4.0.3
+    ./configure --prefix=/app/vendor/mono --with-large-heap=yes
     
     make
     make install
