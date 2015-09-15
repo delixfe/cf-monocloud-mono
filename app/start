@@ -4,9 +4,7 @@ export PATH="$PATH:$HOME/vendor/mono/bin"
 export LD_LIBRARY_PATH="$LD_LIBRARY_PATH:$HOME/vendor/mono/lib"
 export PKG_CONFIG_PATH="$PKG_CONFIG_PATH:$HOME/vendor/mono/lib/pkgconfig"
 
-#export MONO_IOMAP=all
-#export MONO_THREADS_PER_CPU=2048
-#export MONO_GC_PARAMS=major=marksweep-par-fixed,max-heap-size=$MEMORY_LIMIT
+export MONO_THREADS_PER_CPU=2048
 
 echo "* Start application on port ${PORT}..."
 mono --gc=boehm *.exe ${PORT}
