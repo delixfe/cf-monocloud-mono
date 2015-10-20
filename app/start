@@ -5,7 +5,7 @@ export LD_LIBRARY_PATH="$LD_LIBRARY_PATH:$HOME/vendor/mono/lib"
 export PKG_CONFIG_PATH="$PKG_CONFIG_PATH:$HOME/vendor/mono/lib/pkgconfig"
 
 export MONO_LOG_LEVEL=debug
-export MONO_THREADS_PER_CPU=256
 
-echo "* (server/boehm/DEBUG/MAXTHREADS 256) Start application on port ${PORT}..."
-mono --server --gc=boehm *.exe ${PORT}
+
+echo "* (server/sgen/DEBUG) Start application on port ${PORT}..."
+mono --server --gc=sgen  *.exe ${PORT}
