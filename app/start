@@ -5,7 +5,7 @@ export LD_LIBRARY_PATH="$LD_LIBRARY_PATH:$HOME/vendor/mono/lib"
 export PKG_CONFIG_PATH="$PKG_CONFIG_PATH:$HOME/vendor/mono/lib/pkgconfig"
 
 #export MONO_LOG_LEVEL=debug
-export MONO_THREADS_PER_CPU=100
+export MONO_THREADS_PER_CPU=2048
 
-echo "* (server/sgen/MONO_THREADS_PER_CPU=100) Start application on port ${PORT}..."
+echo "* (server/sgen/MONO_THREADS_PER_CPU=2048) Start application on port ${PORT}..."
 mono --server --gc=sgen  *.exe ${PORT}
