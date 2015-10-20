@@ -13,9 +13,9 @@ echo "* Extract Mono Runtime"
 mkdir -p ${BUILD_DIR}/vendor/mono
 
 # curl -s http://www.monobox.ch/mono.tar.gz | tar xz -C ${BUILD_DIR}/vendor/mono/
-# curl -s http://www.monocloud.ch/downloads/CF/mono.tar.gz | tar xz -C ${BUILD_DIR}/vendor/mono/
+curl -s http://www.monocloud.ch/downloads/CF/mono.tar.gz | tar xz -C ${BUILD_DIR}/vendor/mono/
 
-curl -s http://www.monocloud.ch/downloads/CF/mono-4.2.1.60.zip | unzip -d ${BUILD_DIR}/vendor/mono/mono-mono-4.2.1.60
+#curl -s http://www.monocloud.ch/downloads/CF/mono-4.2.1.60.zip | unzip -d ${BUILD_DIR}/vendor/mono/mono-mono-4.2.1.60
 
 # Start Script
 echo "* Copy Startup Script"
