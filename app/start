@@ -8,4 +8,4 @@ export PKG_CONFIG_PATH="$PKG_CONFIG_PATH:$HOME/vendor/mono/lib/pkgconfig"
 export MONO_THREADS_PER_CPU=2048
 
 echo "* (server/sgen/MONO_THREADS_PER_CPU=2048) Start application on port ${PORT}..."
-mono --server --aot -O=all --gc=sgen  *.exe ${PORT}
+mono --server --gc=sgen -O-=all  *.exe ${PORT}
