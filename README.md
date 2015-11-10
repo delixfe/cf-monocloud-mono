@@ -24,14 +24,14 @@ A simple Cloud Foundry build pack to run OWIN based application using Mono.
 
 ## Build mono from GIT
 
-### prequisites:
-configure apt get sources (add mono xamarin)
+### Prequisites:
+    configure apt get sources (add mono xamarin)
 
-apt-get install git autoconf libtool automake build-essential mono-devel gettext
+    apt-get install git autoconf libtool automake build-essential mono-devel gettext
     
 
 
-###compile
+### Compile
 
     aptget update
 
