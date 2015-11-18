@@ -19,7 +19,7 @@ RUN sudo apt-get update
 # Install prerequisites
 RUN sudo apt-get install -y git autoconf libtool automake build-essential mono-devel gettext
 
-Cleanup image
+# Cleanup image
 RUN sudo apt-get autoremove -y
 RUN sudo apt-get clean
 RUN sudo rm -rf /var/lib/apt/lists/* /var/tmp/*
