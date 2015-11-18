@@ -1,39 +1,25 @@
-# Monostream mono runtime builder with all the dependencies needed by MonoCloud
-#
-# VERSION 0.0.1
+# Pull base image.
+FROM ubuntu
 
-FROM ubuntu:latest
 MAINTAINER Dominik Hahn <dominik@monostream.com>
 
+# Define working directory.
+WORKDIR /mnt
+
 # Set locale
-RUN locale-gen --no-purge en_US.UTF-8
+RUN sudo locale-gen --no-purge en_US.UTF-8
 ENV LC_ALL en_US.UTF-8
 
-# Upgrade Ubuntu
-RUN apt-get update
-RUN apt-get upgrade -y
-RUN apt-get dist-upgrade -y
-RUN apt-get autoremove -y
+# Add mono sources
+RUN sudo apt-key adv --keyserver hkp://keyserver.ubuntu.com:80 --recv-keys 3FA7E0328081BFF6A14DA29AA6A19B38D3D831EF
+RUN sudo echo "deb http://download.mono-project.com/repo/debian wheezy main" | sudo tee /etc/apt/sources.list.d/mono-xamarin.list
+RUN sudo echo "deb http://download.mono-project.com/repo/debian alpha main" | sudo tee /etc/apt/sources.list.d/mono-xamarin-alpha.list
+RUN sudo apt-get update
 
-# Install dependencies
-RUN apt-get install -y install git autoconf libtool automake build-essential mono-devel gettext
+# Install prerequisites
+RUN sudo apt-get install -y git autoconf libtool automake build-essential mono-devel gettext
 
-# create monoadmin user
-# RUN useradd -m -d /home/monoadmin -p monoadmin monoadmin && adduser monoadmin sudo && chsh -s /bin/bash monoadmin
-# ENV MONO_USER monoadmin
-
-# Compile
-
-RUN git clone https://github.com/mono/mono.git
-
-RUN git pull
-RUN git tags -l
-RUN git checkout tags/4.2.xxx
-
-RUN ./autogen.sh --prefix=/app/vendor/mono --with-large-heap=yes
-
-RUN make
-RUN make install
-
-RUN cd /app/vendor/mono
-RUN tar -cvzf mono.tar.gz *
+Cleanup image
+RUN sudo apt-get autoremove -y
+RUN sudo apt-get clean
+RUN sudo rm -rf /var/lib/apt/lists/* /var/tmp/*
