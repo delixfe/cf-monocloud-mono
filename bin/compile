@@ -9,9 +9,8 @@ CACHE_DIR=$2
 BUILDPACK_DIR=`cd $(dirname $0); cd ..; pwd`
 
 # Mono Runtime
-echo "* Extract Mono Runtime"
 mkdir -p ${BUILD_DIR}/vendor/mono
-
+echo "* Extract Mono Runtime v4.2.1.102"
 curl -s http://downloads.prod.monocloud.ch/cf/mono-4.2.1.102.tar.gz | tar xz -C ${BUILD_DIR}/vendor/mono/
 
 

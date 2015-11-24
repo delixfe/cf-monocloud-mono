@@ -3,38 +3,50 @@
 A simple Cloud Foundry build pack to run OWIN based application using Mono.
 
 ## Build Mono Tarball
-    cd /tmp
+    
+Add mono sources (inkl. alpha channel)
 
-    apt-get install git autoconf libtool automake build-essential mono-devel gettext
+	sudo apt-key adv --keyserver hkp://keyserver.ubuntu.com:80 --recv-keys 3FA7E0328081BFF6A14DA29AA6A19B38D3D831EF
+	sudo echo "deb http://download.mono-project.com/repo/debian wheezy main" | sudo tee /etc/apt/sources.list.d/mono-xamarin.list
+	sudo echo "deb http://download.mono-project.com/repo/debian alpha main" | sudo tee /etc/apt/sources.list.d/mono-xamarin-alpha.list    
+	sudo apt-get update
+    
+Install prerequisites
+    
+    sudo apt-get install -y git autoconf libtool automake build-essential mono-devel gettext
+    
+Download and extract the desired mono version  
 
-    curl -O http://download.mono-project.com/sources/mono/mono-4.0.3.tar.bz2
-    tar xf mono-4.0.3.tar.gz
+    sudo curl -O http://download.mono-project.com/sources/mono/mono-4.2.1.102.tar.bz2
+    sudo tar xf mono-4.2.1.102.tar.gz
 
-    cd mono-4.0.3
-    ./configure --prefix=/app/vendor/mono --with-large-heap=yes
+Compile mono
 
-    make
-    make install
+    sudo cd mono-4.2.1.102
+    sudo ./autogen.sh --prefix=/app/vendor/mono --with-large-heap=yes
+	sudo make get-monolite-latest
+	sudo make EXTERNAL_MCS="${PWD}/mcs/class/lib/monolite/basic.exe"
+	sudo make install
+	
+Compress mono
 
-    cd /app/vendor/mono
-    tar -cvzf mono.tar.gz *
+    sudo cd /app/vendor/mono
+    sudo tar -cvzf mono.tar.gz *
 
 
+## Build mono using Docker
 
-## Build mono from GIT using Docker
+### Prequisites
 
-### Prequisites:
-
-    sudo docker pull monostream/mono-tarball
+    sudo docker pull monostream/mono-runtime
 
 ### Compile
 
-  mkdir -p $(pwd)/output
-	mkdir -p $(pwd)/artifacts
-
-	# Alias to use like a regular git command
-	alias run='docker run --rm -m 8g -v $(pwd)/:/mnt/ -v $(pwd)/output/:/app/vendor/mono/ -v $(pwd)/artifacts/:/artifacts/ -e UID=$(id -u) -e GID=$(id -g) monostream/mono-tarball'
-
+	mkdir -p ${WORKSPACE}/output
+	mkdir -p ${WORKSPACE}/artifacts
+	
+	alias run='docker run --rm -m 8g -v ${WORKSPACE}/:/mnt/ -v ${WORKSPACE}/output/:/app/vendor/mono/ -v ${WORKSPACE}/artifacts/:/artifacts/ -e UID=$(id -u) -e GID=$(id -g) monostream/mono-tarball'
+	
 	run git fetch --tags
 	run git checkout tags/$(git describe --tags `git rev-list --tags --max-count=1`)
 	run ./autogen.sh --prefix=/app/vendor/mono --with-large-heap=yes
