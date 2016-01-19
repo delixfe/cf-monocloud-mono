@@ -10,8 +10,8 @@ BUILDPACK_DIR=`cd $(dirname $0); cd ..; pwd`
 
 # Mono Runtime
 mkdir -p ${BUILD_DIR}/vendor/mono
-echo "* Extract Mono Runtime v4.2.2.10 SLIM"
-curl -s http://downloads.prod.monocloud.ch/cf/mono-4.2.2.10_slim.tar.gz | tar xz -C ${BUILD_DIR}/vendor/mono/
+echo "* Extract Mono Runtime v4.2.2.29"
+curl -s https://buildpacks.dev.mdl.swisscom.ch/mono-4.2.2.29.tar.gz | tar xz -C ${BUILD_DIR}/vendor/mono/
 
 # Start Script
 echo "* Copy Startup Script"
